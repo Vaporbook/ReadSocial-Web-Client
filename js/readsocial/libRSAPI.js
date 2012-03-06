@@ -143,11 +143,11 @@ ReadSocial.API = (function () {
               var d = jQuery.parseJSON(s.responseText);
               ReadSocial.API.authed = d.authed;
               $LAB
-                   .script("js/readsocial/lib/porthole.min.js").wait() 
-            			 .script("js/readsocial/libRSTmpl.js").wait() /* wait for template variable to exist */
-            			 .script("js/readsocial/libRSSel.js").wait()
-            			 .script("js/readsocial/libRSUI.js").wait()
-            			 .script("js/readsocial/libRSHASH.js")
+                   .script(_formatLibUrl("js/readsocial/lib/porthole.min.js")).wait() 
+            			 .script(_formatLibUrl("js/readsocial/libRSTmpl.js")).wait() /* wait for template variable to exist */
+            			 .script(_formatLibUrl("js/readsocial/libRSSel.js")).wait()
+            			 .script(_formatLibUrl("js/readsocial/libRSUI.js")).wait()
+            			 .script(_formatLibUrl("js/readsocial/libRSHASH.js"))
             			 .wait(finalizeInit);
              
              
@@ -205,7 +205,7 @@ ReadSocial.API = (function () {
 		}
 	  
     if(!hasJQ) {
-      $LAB.script("js/readsocial/lib/jquery-1.7.1.min.js").wait(jqloaded);
+      $LAB.script(_formatLibUrl("js/readsocial/lib/jquery-1.7.1.min.js")).wait(jqloaded);
     } else {
       jqloaded();
     }
@@ -796,6 +796,16 @@ ReadSocial.API = (function () {
     
     
   }
+  
+  function _formatLibUrl(url)
+ 	{
+ 	  console.log(window.location);
+ 	  if(window.location.pathname.match(/\.html?$/i)) { // static file load
+ 	    return url;
+ 	  } else {
+ 	    return _RS_ROOT + '/' +url
+ 	  }
+ 	}
  	
   function _formatUrl(url, args)
   {

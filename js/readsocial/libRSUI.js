@@ -58,7 +58,7 @@ ReadSocial.UI = (function () {
     
     if(typeof config.debug != 'undefined') debugging = config.debug;
     if(typeof config.css == 'undefined') config.css = [
-                "js/readsocial/css/rsui.css"
+                _formatLibUrl("js/readsocial/css/rsui.css")
     ];
 
     if(typeof ReadSocial.API=='undefined') throw ('ReadSocial.API must be loaded first!');
@@ -68,8 +68,8 @@ ReadSocial.UI = (function () {
     };
 
     $LAB
-         .script("js/readsocial/lib/jquery-ui.min.js")
-         .script("js/readsocial/lib/dropfile.js")
+         .script(_formatLibUrl("js/readsocial/lib/jquery-ui.min.js"))
+         .script(_formatLibUrl("js/readsocial/lib/dropfile.js"))
          .wait(function () {
             
                contentdoc = ReadSocial.API.getContentDoc();
@@ -1183,6 +1183,16 @@ ReadSocial.UI = (function () {
     var max = 180;
     return _shorten(h,max);
   }
+  
+  function _formatLibUrl(url)
+ 	{
+ 	  console.log(window.location);
+ 	  if(window.location.pathname.match(/\.html?$/i)) { // static file load
+ 	    return url;
+ 	  } else {
+ 	    return _RS_ROOT + '/' +url
+ 	  }
+ 	}
   
   function _shorten(h,max)
   {

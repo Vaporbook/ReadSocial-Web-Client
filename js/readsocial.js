@@ -15,7 +15,7 @@ function readsocial(config) { /* readsocial bootstrapper for x-domain loading */
                    ReadSocial.API.load(config);
                  }
                }
-               s1.src = /*config.host_uri + window.location.path + */'js/readsocial/libRSAPI.js';
+               s1.src = config.host_uri + '/js/readsocial/libRSAPI.js';
                document.body.appendChild(s1);
              }
             }
